@@ -11,8 +11,8 @@ custom parameters.
 In Response Box, you will get your response on clicking the `Submit` Button.
 
 ## Built With
-|HTML|CSS|JavaScript|
-|---|---|---|
+|HTML|CSS|Bootstrap|JavaScript|
+|---|---|---|---|
 
 ## Preview
 ![image](https://github.com/TheNewC0der-24/Postman-Clone/blob/master/Preview.png "Preview")
