@@ -8,7 +8,7 @@ responses that need to be subsequently validated.
 In this Clone, you have an option for `GET` and `POST` request. Also, you can get request in JSON form or you can use custom parameters . You can **Add** or **Delete** 
 custom parameters. 
 
-In Response Box, you will get your response on clicking the `Sumbit` Button.
+In Response Box, you will get your response on clicking the `Submit` Button.
 
 ## Built With
 |HTML|CSS|JavaScript|
