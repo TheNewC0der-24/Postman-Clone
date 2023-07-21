@@ -1,0 +1,22 @@
+{
+  "name": "postman-clone",
+  "version": "1.0.0",
+  "description": "PostMan is an application used for API testing. It is an HTTP client that tests HTTP requests, utilizing a graphical user interface, through which we obtain different types of responses that need to be subsequently validated.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "postman clone",
+    "rest api",
+    "restful api",
+    "restful api client",
+    "restful api client clone",
+    "restful api client clone postman",
+    "restful api client clone postman clone",
+    "restful api client clone postman clone using javascript and html",
+    "restful api client clone postman clone using javascript and html and css and bootstrap"
+  ],
+  "author": "",
+  "license": "ISC"
+}
