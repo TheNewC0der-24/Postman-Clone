@@ -15,11 +15,14 @@
     "restful api client clone postman",
     "restful api client clone postman clone",
     "restful api client clone postman clone using javascript and html",
-    "restful api client clone postman clone using javascript and html and css and bootstrap"
+    "restful api client clone postman clone using javascript, html, css and bootstrap"
   ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.4.0"
+  },
+  "devDependencies": {
+    "snowpack": "^3.8.8"
   }
 }
