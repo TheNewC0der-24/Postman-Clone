@@ -1,0 +1,14 @@
+.navbar {
+    border-bottom: 1px solid #e5e5e5 !important;
+}
+
+input:focus,
+select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: 1px solid #ced4da !important;
+}
+
+.json-request-body {
+    max-height: 200px !important;
+}
