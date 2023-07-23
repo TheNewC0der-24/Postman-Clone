@@ -8,25 +8,84 @@
     <meta name="keywords" content="PostMan-Clone, PostMan, postman, GET request, POST request">
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 
-    <!-- Style CSS -->
-    <link rel="stylesheet" href="./CSS/style.css">
+    <link rel="stylesheet" href="./assets/CSS/style.css">
+    <script type="module" src="./assets/JS/script.js"></script>
 
-    <title>PostMan-Clone</title>
+    <title>PostMan Clone</title>
 </head>
 
 <body>
-    <nav class="navbar sticky-top navbar-dark" style="background-color: black;">
-        <div class="container-fluid d-flex justify-content-center">
-            <a class="navbar-brand text-sm-start" href="#">
-                <img src="./Img/logo.png" alt="logo" width="65" height="40" class="d-inline-block">
-                PostMan-Clone
-            </a>
+    <nav class="navbar navbar-light sticky-top">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                <img src="./assets/Img/logo.png" alt="logo" width="8%" class="d-inline-block">
+                PostMan Clone
+            </div>
         </div>
     </nav>
 
+    <div class="p-4">
+        <form>
+            <div class="input-group mb-4">
+                <select class="form-select flex-grow-0 w-auto">
+                    <option value="GET" selected>GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="PATCH">PATCH</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+                <input class="form-control" type="url" placeholder="https://example.com" required>
+                <button class="btn btn-primary" type="submit">Send</button>
+            </div>
 
-    <!-- JavaScript -->
-    <script src="./JS/script.js"></script>
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="queryParamsTabs" data-bs-toggle="tab"
+                        data-bs-target="#query-params" type="button" role="tab" aria-controls="query-params"
+                        aria-selected="true">
+                        Query Params
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="requestHeadersTabs" data-bs-toggle="tab"
+                        data-bs-target="#request-headers" type="button" role="tab" aria-controls="request-headers"
+                        aria-selected="false">
+                        Headers
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="jsonTabs" data-bs-toggle="tab" data-bs-target="#json" type="button"
+                        role="tab" aria-controls="json" aria-selected="false">
+                        JSON
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content p-3 border-top-0 border">
+                <div class="tab-pane fade show active" id="query-params" role="tabpanel"
+                    aria-labelledby="queryParamsTabs">
+                    <div data-query-params></div>
+                    <button data-add-query-param-btn class="btn btn-outline-success mt-2" type="button">Add</button>
+                </div>
+                <div class="tab-pane fade show" id="request-headers" role="tabpanel"
+                    aria-labelledby="requestHeadersTabs">
+                    <div request-headers></div>
+                    <button request-header-btn class="btn btn-outline-success mt-2" type="button">Add</button>
+                </div>
+                <div class="tab-pane fade show" id="json" role="tabpanel" aria-labelledby="jsonTabs">
+                    <div data-json-request-body class="overflow-auto json-request-body"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <template data-key-value-template>
+        <div class="input-group my-2" data-key-value-pair>
+            <input type="text" data-key class="form-control" placeholder="Key">
+            <input type="text" data-value class="form-control" placeholder="Value">
+            <button class="btn btn-outline-danger" data-remove-btn type="button">Remove</button>
+        </div>
+    </template>
 </body>
 
 </html>
