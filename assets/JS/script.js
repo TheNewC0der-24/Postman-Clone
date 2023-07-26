@@ -1,6 +1,6 @@
 console.log('Welcome to PostMan Clone');
 
-import 'bootstrap';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import prettyBytes from 'pretty-bytes';
