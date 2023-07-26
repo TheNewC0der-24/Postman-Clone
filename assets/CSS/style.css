@@ -9,6 +9,13 @@ select:focus {
     border: 1px solid #ced4da !important;
 }
 
-.json-request-body {
+.json-request-body,
+.json-response-body {
     max-height: 200px !important;
+}
+
+.headers-response {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 2rem;
 }
