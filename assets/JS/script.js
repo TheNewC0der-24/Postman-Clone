@@ -1,6 +1,6 @@
 console.log('Welcome to PostMan Clone');
 
-import prettyBytes from '../../node_modules/pretty-bytes';
+import prettyBytes from 'pretty-bytes';
 import editorSetup from './editorSetup';
 
 const queryParamsContainer = document.querySelector('[data-query-params]');
