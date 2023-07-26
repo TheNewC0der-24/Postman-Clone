@@ -1,7 +1,7 @@
-import { EditorState, basicSetup } from "@codemirror/basic-setup";
-import { EditorView, keymap } from "@codemirror/view";
-import { defaultTabBinding } from "@codemirror/commands";
-import { json } from "@codemirror/lang-json";
+import { EditorState, basicSetup, EditorView } from "../../node_modules/@codemirror/basic-setup/dist/index.js";
+import { keymap } from "../../node_modules/@codemirror/view/dist/index";
+import { defaultTabBinding } from "../../node_modules/@codemirror/commands/dist/index";
+import { json } from "../../node_modules/@codemirror/lang-json/dist/index";
 
 export default function editorSetup() {
     const jsonRequestBody = document.querySelector('[data-json-request-body]');
