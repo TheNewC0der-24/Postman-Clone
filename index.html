@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light sticky-top">
+    <nav class="navbar navbar-light bg-light sticky-top">
         <div class="container-fluid">
             <div class="navbar-brand">
                 <img src="./assets/Img/logo.png" alt="logo" width="8%" class="d-inline-block">
@@ -25,16 +25,16 @@
     </nav>
 
     <div class="p-4">
-        <form>
+        <form data-form>
             <div class="input-group mb-4">
-                <select class="form-select flex-grow-0 w-auto">
+                <select data-method class="form-select flex-grow-0 w-auto">
                     <option value="GET" selected>GET</option>
                     <option value="POST">POST</option>
                     <option value="PUT">PUT</option>
                     <option value="PATCH">PATCH</option>
                     <option value="DELETE">DELETE</option>
                 </select>
-                <input class="form-control" type="url" placeholder="https://example.com" required>
+                <input data-url class="form-control" type="url" placeholder="https://example.com" required>
                 <button class="btn btn-primary" type="submit">Send</button>
             </div>
 
@@ -69,8 +69,8 @@
                 </div>
                 <div class="tab-pane fade show" id="request-headers" role="tabpanel"
                     aria-labelledby="requestHeadersTabs">
-                    <div request-headers></div>
-                    <button request-header-btn class="btn btn-outline-success mt-2" type="button">Add</button>
+                    <div data-request-headers></div>
+                    <button data-request-header-btn class="btn btn-outline-success mt-2" type="button">Add</button>
                 </div>
                 <div class="tab-pane fade show" id="json" role="tabpanel" aria-labelledby="jsonTabs">
                     <div data-json-request-body class="overflow-auto json-request-body"></div>
