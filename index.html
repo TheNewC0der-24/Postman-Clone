@@ -2,157 +2,139 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="PostMan-Clone">
     <meta name="keywords" content="PostMan-Clone, PostMan, postman, GET request, POST request">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 
-    <link rel="shortcut icon" href="./Img/favicon.png" type="image/png">
+    <link rel="stylesheet" href="./assets/CSS/style.css">
+    <script type="module" src="./assets/JS/script.js"></script>
 
-    <!-- Style CSS -->
-    <link rel="stylesheet" href="./CSS/style.css">
-
-    <!-- Prism CSS -->
-    <link rel="stylesheet" href="./CSS/prism.css">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
-    <title>PostMan-Clone</title>
-
+    <title>Postman Clone</title>
 </head>
 
 <body>
-    <nav class="navbar sticky-top navbar-dark" style="background-color: black;">
-        <div class="container-fluid d-flex justify-content-center">
-            <a class="navbar-brand text-sm-start" href="#">
-                <img src="./Img/logo.png" alt="logo" width="65" height="40" class="d-inline-block">
-                PostMan-Clone
-            </a>
+    <div class="loader" id="loader"></div>
+
+    <nav class="navbar navbar-light bg-light sticky-top">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                <img src="./assets/Img/logo.png" alt="logo" width="8%" class="d-inline-block">
+                PostMan Clone
+            </div>
         </div>
     </nav>
 
-    <div class="container my-5">
-        <!-- URL box -->
-        <div class="form-group row">
-            <label for="url" class="col-sm-2 col-form-label">URL</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="url" placeholder="Enter URL here">
-            </div>
+    <div class="p-4">
+        <div data-alert class="alert alert-danger d-none" role="alert">
+            JSON data is malformed
         </div>
 
-        <!-- Request type box -->
-        <fieldset class="form-group">
-            <div class="row">
-                <legend class="col-form-label col-sm-2 pt-0">Request Type</legend>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="requestType" id="get" value="GET" checked>
-                        <label class="form-check-label" for="get">
-                            GET
-                        </label>
+        <form data-form>
+            <div class="input-group mb-4">
+                <select data-method class="form-select flex-grow-0 w-auto">
+                    <option value="GET" selected>GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="PATCH">PATCH</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+                <input data-url class="form-control" type="url" placeholder="https://example.com" required>
+                <button class="btn btn-primary" type="submit">Send</button>
+            </div>
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="queryParamsTabs" data-bs-toggle="tab"
+                        data-bs-target="#query-params" type="button" role="tab" aria-controls="query-params"
+                        aria-selected="true">
+                        Query Params
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="requestHeadersTabs" data-bs-toggle="tab"
+                        data-bs-target="#request-headers" type="button" role="tab" aria-controls="request-headers"
+                        aria-selected="false">
+                        Headers
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="jsonTabs" data-bs-toggle="tab" data-bs-target="#json" type="button"
+                        role="tab" aria-controls="json" aria-selected="false">
+                        JSON
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content p-3 border-top-0 border">
+                <div class="tab-pane fade show active" id="query-params" role="tabpanel"
+                    aria-labelledby="queryParamsTabs">
+                    <div data-query-params></div>
+                    <button data-add-query-param-btn class="btn btn-outline-success mt-2" type="button">Add</button>
+                </div>
+                <div class="tab-pane fade" id="request-headers" role="tabpanel" aria-labelledby="requestHeadersTabs">
+                    <div data-request-headers></div>
+                    <button data-request-header-btn class="btn btn-outline-success mt-2" type="button">Add</button>
+                </div>
+                <div class="tab-pane fade" id="json" role="tabpanel" aria-labelledby="jsonTabs">
+                    <div data-json-request-body class="overflow-auto json-request-body"></div>
+                </div>
+            </div>
+        </form>
+
+        <div class="mt-5 d-none" data-response-section>
+            <h3>Response</h3>
+            <div class="d-flex my-2">
+                <div class="me-3">
+                    Status: <span data-status></span>
+                </div>
+                <div class="me-3">
+                    Time: <span data-time></span>ms
+                </div>
+                <div class="me-3">
+                    Size: <span data-size></span>
+                </div>
+            </div>
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="bodyTabs" data-bs-toggle="tab" data-bs-target="#body"
+                        type="button" role="tab" aria-controls="body" aria-selected="true">
+                        Body
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="responseHeadersTabs" data-bs-toggle="tab"
+                        data-bs-target="#response-headers" type="button" role="tab" aria-controls="response-headers"
+                        aria-selected="false">
+                        Headers
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content p-3 border-top-0 border">
+                <div class="tab-pane fade show active" id="body" role="tabpanel" aria-labelledby="bodyTabs">
+                    <div data-json-response-body class="overflow-auto json-response-body">
+
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="requestType" id="post" value="POST">
-                        <label class="form-check-label" for="post">
-                            POST
-                        </label>
+                </div>
+                <div class="tab-pane fade" id="response-headers" role="tabpanel" aria-labelledby="responseHeadersTabs">
+                    <div data-response-headers class="headers-response">
+
                     </div>
-
-                </div>
-            </div>
-        </fieldset>
-
-        <!-- Content type box -->
-        <fieldset class="form-group">
-            <div class="row">
-                <legend class="col-form-label col-sm-2 pt-0">Content Type</legend>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="contentType" id="jsonRadio" value="json"
-                            checked>
-                        <label class="form-check-label" for="json">
-                            JSON
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="contentType" id="paramsRadio" value="params">
-                        <label class="form-check-label" for="params">
-                            Custom Parameters
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-
-        <!-- Parameters box - This will hide on clicking json option in content type  -->
-        <div id="parametersBox">
-            <div class="form-row">
-                <label for="url" class="col-sm-2 col-form-label">Parameter 1</label>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" id="parameterKey1" placeholder="Key">
-                </div>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" id="parameterValue1" placeholder="Value">
-                </div>
-                <button id="addParam" class="btn btn-success mx-1">+</button>
-            </div>
-            <div id="params"></div>
-        </div>
-
-        <!-- Json Request box - This will hide on clicking parameters option in content type -->
-        <div class="my-3" id="requestJsonBox">
-            <div class="form-group row">
-                <label for="requestJsonText" class="col-sm-2 col-form-label">Enter Request Json</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control my-2" id="requestJsonText" rows="2"></textarea>
-                </div>
-            </div>
-        </div>
-
-        <!-- Submit button which will trigger fetch api -->
-        <div class="form-group row my-3">
-            <div class="col-sm-10  d-flex justify-content-center mx-auto">
-                <button id="submit" class="btn btn-warning">Submit</button>
-            </div>
-        </div>
-
-        <div class="my-4" id="responseJsonBox">
-            <div class="form-group row">
-                <label for="responseJsonText" class="col-sm-2 col-form-label">Response</label>
-                <div class="col-sm-10">
-
-                    <!-- <textarea class="form-control" id="responseJsonText"
-                        rows="4">Your response will appear here</textarea> -->
-
-                    <pre id="responsePre"
-                        class="language-javascript my-2"> <code id='responsePrism' class="language-javascript">Your response will appear here !!</code></pre>
                 </div>
             </div>
         </div>
     </div>
 
-
-    <!-- JavaScript -->
-    <script src="./JS/script.js"></script>
-
-    <!-- Prism JS -->
-    <script src="./JS/prism.js"></script>
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-
+    <template data-key-value-template>
+        <div class="input-group my-2" data-key-value-pair>
+            <input type="text" data-key class="form-control" placeholder="Key">
+            <input type="text" data-value class="form-control" placeholder="Value">
+            <button class="btn btn-outline-danger" data-remove-btn type="button">Remove</button>
+        </div>
+    </template>
 </body>
 
 </html>

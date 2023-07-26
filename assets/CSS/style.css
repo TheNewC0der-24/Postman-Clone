@@ -1,0 +1,33 @@
+.loader {
+    width: 100%;
+    height: 100%;
+    background-image: url('../Img/loader.gif');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #ced4da;
+    position: absolute;
+    z-index: 9999;
+}
+
+.navbar {
+    border-bottom: 1px solid #e5e5e5 !important;
+}
+
+input:focus,
+select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: 1px solid #ced4da !important;
+}
+
+.json-request-body,
+.json-response-body {
+    max-height: 200px !important;
+}
+
+.headers-response {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 2rem;
+}
