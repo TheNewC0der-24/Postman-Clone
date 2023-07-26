@@ -17,7 +17,7 @@ export default function editorSetup() {
     const requestEditor = new EditorView({
         state: EditorState.create({
             doc: "{}",
-            extensions: [...basicExtensions, EditorView.editable.of(false)],
+            extensions: basicExtensions,
         }),
         parent: jsonRequestBody,
     });
@@ -25,7 +25,7 @@ export default function editorSetup() {
     const responseEditor = new EditorView({
         state: EditorState.create({
             doc: "{\n\t\n}",
-            extensions: basicExtensions,
+            extensions: [...basicExtensions, EditorView.editable.of(false)],
         }),
         parent: jsonResponseBody,
     });
