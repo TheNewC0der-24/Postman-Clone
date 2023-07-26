@@ -4,6 +4,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import prettyBytes from 'pretty-bytes';
+import editorSetup from './editorSetup';
 
 const queryParamsContainer = document.querySelector('[data-query-params]');
 const requestHeadersContainer = document.querySelector('[data-request-headers]');
@@ -23,36 +24,50 @@ queryParamsContainer.append(createKeyValuePair());
 requestHeadersContainer.append(createKeyValuePair());
 
 axios.interceptors.request.use(request => {
-    request.customData = request.customData || {}
-    request.customData.startTime = new Date().getTime()
-    return request
+    request.customData = request.customData || {};
+    request.customData.startTime = new Date().getTime();
+    return request;
 })
 
 function updateEndTime(response) {
-    response.customData = response.customData || {}
-    response.customData.time =
-        new Date().getTime() - response.config.customData.startTime
-    return response
+    response.customData = response.customData || {};
+    response.customData.time = new Date().getTime() - response.config.customData.startTime;
+    return response;
 }
 
 axios.interceptors.response.use(updateEndTime, e => {
-    return Promise.reject(updateEndTime(e.response))
-})
+    return Promise.reject(updateEndTime(e.response));
+});
+
+const { requestEditor, updateResponseEditor } = editorSetup();
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    let data;
+    try {
+        data = JSON.parse(requestEditor.state.doc.toString() || null);
+    }
+    catch (e) {
+        document.querySelector('[data-alert]').classList.remove('d-none');
+        setTimeout(() => {
+            document.querySelector('[data-alert]').classList.add('d-none');
+        }, 3000);
+        return;
+    }
 
     axios({
         url: document.querySelector('[data-url]').value,
         method: document.querySelector('[data-method]').value,
         params: keyValuePairsToObjects(queryParamsContainer),
-        headers: keyValuePairsToObjects(requestHeadersContainer)
+        headers: keyValuePairsToObjects(requestHeadersContainer),
+        data,
     })
         .catch(e => e)
         .then((response) => {
             document.querySelector('[data-response-section]').classList.remove('d-none');
             updateResponseDetails(response);
-            // updateResponseEditor(response.data);
+            updateResponseEditor(response.data);
             updateResponseHeaders(response.headers);
         });
 });
