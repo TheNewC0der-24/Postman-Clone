@@ -1,6 +1,6 @@
 console.log('Welcome to PostMan Clone');
 
-// import prettyBytes from '../../node_modules/pretty-bytes';
+import prettyBytes from '../../node_modules/pretty-bytes/index.js';
 import editorSetup from './editorSetup';
 
 const queryParamsContainer = document.querySelector('[data-query-params]');
@@ -91,9 +91,9 @@ function keyValuePairsToObjects(container) {
 function updateResponseDetails(response) {
     document.querySelector('[data-status]').textContent = response.status;
     document.querySelector('[data-time]').textContent = response.customData.time;
-    // document.querySelector('[data-size]').textContent = prettyBytes(
-    //     JSON.stringify(response.data).length + JSON.stringify(response.headers).length
-    // );
+    document.querySelector('[data-size]').textContent = prettyBytes(
+        JSON.stringify(response.data).length + JSON.stringify(response.headers).length
+    );
 };
 
 function updateResponseHeaders(headers) {
