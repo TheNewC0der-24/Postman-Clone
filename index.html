@@ -13,7 +13,6 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
     <link rel="stylesheet" href="./assets/CSS/style.css">
-    <script type="module" src="./assets/JS/script.js"></script>
 
     <title>Postman Clone</title>
 </head>
@@ -82,7 +81,11 @@
                     <button data-request-header-btn class="btn btn-outline-success mt-2" type="button">Add</button>
                 </div>
                 <div class="tab-pane fade" id="json" role="tabpanel" aria-labelledby="jsonTabs">
-                    <div data-json-request-body class="overflow-auto json-request-body"></div>
+                    <!-- <div data-json-request-body class="overflow-auto json-request-body"> -->
+                    <!-- <textarea class="form-control" rows="5"></textarea> -->
+
+                    <div id="json-input" class="overflow-auto json-request-body" style="height: 300px;"></div>
+                    <!-- </div> -->
                 </div>
             </div>
         </form>
@@ -119,10 +122,13 @@
 
             <div class="tab-content p-3 border-top-0 border">
                 <div class="tab-pane fade show active" id="body" role="tabpanel" aria-labelledby="bodyTabs">
-                    <div data-json-response-body class="overflow-auto json-response-body">
+                    <!-- <div data-json-response-body class="overflow-auto json-response-body">
+                        <div id="jsonResponseEditor"></div>
+                    </div> -->
 
-                    </div>
+                    <div id="json-output" class="overflow-auto json-request-body" style="height: 300px;"></div>
                 </div>
+
                 <div class="tab-pane fade" id="response-headers" role="tabpanel" aria-labelledby="responseHeadersTabs">
                     <div data-response-headers class="headers-response">
 
@@ -140,12 +146,22 @@
         </div>
     </template>
 
+
+    <script type="module" src="./assets/JS/script.js"></script>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
     <!-- Axios  -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.5.6/jsoneditor.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"
+        integrity="sha512-GZ1RIgZaSc8rnco/8CXfRdCpDxRCphenIiZ2ztLy3XQfS2KzB9dCm5KRMb2JZ2PPlDZC8SHNJKLZ7oGqYrW7bw=="
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
