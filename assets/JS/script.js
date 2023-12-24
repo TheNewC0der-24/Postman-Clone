@@ -1,7 +1,4 @@
-console.log('Welcome to PostMan Clone');
-
-import prettyBytes from '../../node_modules/pretty-bytes/index.js';
-import editorSetup from './editorSetup';
+console.log('Welcome to Postman Clone');
 
 const queryParamsContainer = document.querySelector('[data-query-params]');
 const requestHeadersContainer = document.querySelector('[data-request-headers]');
@@ -36,14 +33,31 @@ axios.interceptors.response.use(updateEndTime, e => {
     return Promise.reject(updateEndTime(e.response));
 });
 
-const { requestEditor, updateResponseEditor } = editorSetup();
+var editor = ace.edit("json-input");
+editor.setTheme("ace/theme/monokai");
+editor.session.setMode("ace/mode/json");
+editor.session.setUseWrapMode(true);
+editor.setOptions({
+    autoScrollEditorIntoView: true,
+    copyWithEmptySelection: true,
+});
+editor.session.setUseSoftTabs(true);
+editor.session.mergeUndoDeltas = true;
+editor.setValue('{}', -1);
+
+var outputEditor = ace.edit("json-output");
+outputEditor.setTheme("ace/theme/monokai");
+outputEditor.session.setMode("ace/mode/json");
+outputEditor.setReadOnly(true);
+outputEditor.session.setUseWrapMode(true);
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     let data;
     try {
-        data = JSON.parse(requestEditor.state.doc.toString() || null);
+        // data = JSON.parse(document.querySelector('[data-json-request-body] textarea').value || null);
+        data = JSON.parse(editor.getValue()) || null;
     }
     catch (e) {
         document.querySelector('[data-alert]').classList.remove('d-none');
@@ -64,7 +78,8 @@ form.addEventListener('submit', (e) => {
         .then((response) => {
             document.querySelector('[data-response-section]').classList.remove('d-none');
             updateResponseDetails(response);
-            updateResponseEditor(response.data);
+            outputEditor.setValue(JSON.stringify(response.data, null, 2), -1);
+            // document.querySelector('[data-json-response-body]').innerHTML = '<pre>' + '<code>' + JSON.stringify(response.data, null, 2) + '</code>' + '</pre>';
             updateResponseHeaders(response.headers);
         });
 });
@@ -88,12 +103,16 @@ function keyValuePairsToObjects(container) {
     }, {});
 };
 
+function formatSize(size) {
+    const i = Math.floor(Math.log(size) / Math.log(1024));
+    return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'KB', 'MB', 'GB', 'TB'][i];
+};
+
 function updateResponseDetails(response) {
     document.querySelector('[data-status]').textContent = response.status;
     document.querySelector('[data-time]').textContent = response.customData.time;
-    document.querySelector('[data-size]').textContent = prettyBytes(
-        JSON.stringify(response.data).length + JSON.stringify(response.headers).length
-    );
+    const sizeInBytes = JSON.stringify(response.data).length + JSON.stringify(response.headers).length;
+    document.querySelector('[data-size]').textContent = formatSize(sizeInBytes);
 };
 
 function updateResponseHeaders(headers) {
